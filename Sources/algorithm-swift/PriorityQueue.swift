@@ -1,21 +1,21 @@
 
-protocol Prioritizable {
+public protocol Prioritizable {
   var priority: QueuePriority { get }
 }
 
-enum QueuePriority {
+public enum QueuePriority {
   case high
   case medium
   case low
 }
 
-actor PriorityQueue<T: Prioritizable> {
+public actor PriorityQueue<T: Prioritizable> {
   
   private var highPriorityQueue: [T] = []
   private var mediumPriorityQueue: [T] = []
   private var lowPriorityQueue: [T] = []
   
-  func enqueue(_ message: T) {
+  public func enqueue(_ message: T) {
     switch message.priority {
     case .high:
       highPriorityQueue.append(message)
@@ -26,7 +26,7 @@ actor PriorityQueue<T: Prioritizable> {
     }
   }
   
-  func dequeue() -> T? {
+  public func dequeue() -> T? {
     if !highPriorityQueue.isEmpty {
       return highPriorityQueue.removeFirst()
     } else if !mediumPriorityQueue.isEmpty {
@@ -38,7 +38,7 @@ actor PriorityQueue<T: Prioritizable> {
     }
   }
   
-  var isEmpty: Bool {
+  public var isEmpty: Bool {
     highPriorityQueue.isEmpty && mediumPriorityQueue.isEmpty && lowPriorityQueue.isEmpty
   }
 }
